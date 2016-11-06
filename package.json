@@ -2,9 +2,12 @@
   "name": "share.it",
   "version": "1.0.0",
   "description": "Modern share. No dependencies. Just JS. Just 4kb.",
-  "main": "src/index.js",
+  "main": "lib/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "browserify": "browserify \"./lib/index.js\" -s ShareIt -o \"./dist/share.it.js\"",
+    "minifyify": "browserify \"./lib/index.js\" -d -p [minifyify --map share.it.min.js.map --output ./dist/share.it.min.js.map] > \"./dist/share.it.min.js\"",
+    "build": "npm run browserify && npm run minifyify"
   },
   "repository": {
     "type": "git",
@@ -22,5 +25,12 @@
   "bugs": {
     "url": "https://github.com/cezarlz/share-it/issues"
   },
-  "homepage": "https://github.com/cezarlz/share-it#readme"
+  "homepage": "https://github.com/cezarlz/share-it#readme",
+  "devDependencies": {
+    "browserify": "^13.1.1",
+    "minifyify": "^7.3.4"
+  },
+  "dependencies": {
+    "object-assign-polyfill": "^0.1.0"
+  }
 }
