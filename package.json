@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "browserify": "browserify \"./lib/index.js\" -s ShareIt -o \"./dist/share.it.js\"",
-    "minifyify": "browserify \"./lib/index.js\" -d -p [minifyify --map share.it.min.js.map --output ./dist/share.it.min.js.map] > \"./dist/share.it.min.js\"",
+    "minifyify": "browserify \"./lib/index.js\" -s ShareIt -d -p [minifyify --map share.it.min.js.map --output ./dist/share.it.min.js.map] > \"./dist/share.it.min.js\"",
     "build": "npm run browserify && npm run minifyify"
   },
   "repository": {

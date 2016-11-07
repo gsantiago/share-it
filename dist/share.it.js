@@ -21,6 +21,9 @@ var ShareIt = module.exports = function(options) {
   // Constructor
   this.elements = [].slice.apply(document.querySelectorAll('[data-share]'));
 
+  // Create a binded function for click handler
+  this.clickHandlerBinded = this.clickHandler.bind(this)
+
   return {
     init: function() {
       self.clickElements();
@@ -34,13 +37,21 @@ ShareIt.prototype = {
     var self = this;
 
     self.elements.map(function(el) {
-      el.addEventListener('click', function(e) {
-        e.preventDefault();
+      el.addEventListener('click', self.clickHandlerBinded);
+    });
+  },
+  clickHandler: function(e) {
+    e.preventDefault();
 
-        var url = self.getMediaUrl(el);
+    var url = this.getMediaUrl(e.target);
 
-        window.open(encodeURI(url), self.opts.target, self.getSpecs(el));
-      });
+    window.open(encodeURI(url), this.opts.target, this.getSpecs(e.target));
+  },
+  destroy: function () {
+    var self = this;
+
+    self.elements.map(function(el) {
+      el.removeEventListener(self.clickHandlerBinded);
     });
   },
   getSpecs: function(el) {
