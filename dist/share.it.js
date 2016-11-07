@@ -27,6 +27,9 @@ var ShareIt = module.exports = function(options) {
   return {
     init: function() {
       self.clickElements();
+    },
+    destroy: function () {
+      self.destroy();
     }
   };
 
@@ -48,11 +51,9 @@ ShareIt.prototype = {
     window.open(encodeURI(url), this.opts.target, this.getSpecs(e.target));
   },
   destroy: function () {
-    var self = this;
-
-    self.elements.map(function(el) {
-      el.removeEventListener(self.clickHandlerBinded);
-    });
+    this.elements.map(function(el) {
+      el.removeEventListener('click', this.clickHandlerBinded);
+    }, this);
   },
   getSpecs: function(el) {
     var self = this;
